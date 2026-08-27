@@ -26,13 +26,14 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - name: Set up Kustomize
-        uses: imranismail/setup-kustomize@v1.0.0
+      - name: Kustomize
+        uses: imranismail/setup-kustomize@v1
         with:
           kustomize_version: v3.6.1
 
       - name: update k8s
         run: |
+          cd k8s
           kustomize edit set image goapp=jcfalves/argocd-fullcycle:${{ github.sha }}
           cat kustomization.yaml
 
