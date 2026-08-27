@@ -17,4 +17,39 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: jcfalves/argocd-fullcycle
           tags: ${{ github.sha }}, latest
-   
+
+  deploy:
+    name: deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v1.0.0
+        with:
+          version: 5.0.1
+
+      - name: update k8s
+        run: |
+          kustomize edit set image goapp=jcfalves/argocd-fullcycle:${{ github.sha }}
+          cat kustomization.yaml
+
+      - name: commit
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git commit -am "Update k8s image to jcfalves/argocd-fullcycle:${{ github.sha }}"
+
+      - name: push
+        uses: ad-m/github-push-action@master
+        #with:
+         # github_token: ${ { secrets.GITHUB_TOKEN }}
+         # branch: main    
+
+      #- name: Deploy to Kubernetes
+      #  uses: imranismail/kubectl-kustomize-action@v1.0.0
+      #  with:
+      #    kubeconfig: ${ { secrets.KUBECONFIG }}
+      #    kustomize_path: ./k8s   
