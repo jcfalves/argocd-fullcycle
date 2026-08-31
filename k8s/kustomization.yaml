@@ -9,4 +9,4 @@ namespace: goapp
 images:
 - name: goapp
   newName: jcfalves/argocd-fullcycle
-  newTag: 15aff7fdddd32396f935a5e4ea831a6f1016fe86
+  newTag: 13280ac15d530c40f0c60a0db67d8c74df2c6910
