@@ -16,4 +16,4 @@ spec:
       - name: goapp
         image: goapp
         ports:
-        - containerPort: 8090
+        - containerPort: 8085

@@ -6,6 +6,6 @@ spec:
   selector:
     app: goapp
   ports:
-  - port: 8090
-    targetPort: 8090
+  - port: 8085
+    targetPort: 8085
   type: LoadBalancer

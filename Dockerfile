@@ -9,4 +9,3 @@ WORKDIR /app
 COPY --from=build /app/server .
 EXPOSE 8090
 CMD ["./server"]
-
